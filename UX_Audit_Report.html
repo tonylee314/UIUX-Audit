@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortify UX Competitive Landscape Report</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple-deep: #2d1b4e;
+    --purple-mid: #4a3272;
+    --purple-soft: #7c5cbf;
+    --purple-pale: #ede8f7;
+    --green-mid: #3a7d5a;
+    --green-soft: #5aab7e;
+    --green-pale: #e8f5ee;
+    --neutral-900: #111118;
+    --neutral-700: #3a3a4a;
+    --neutral-500: #6b6b80;
+    --neutral-200: #e8e8f0;
+    --neutral-100: #f4f4f8;
+    --white: #ffffff;
+    --sidebar-w: 240px;
+    --accent-warn: #c0533a;
+    --accent-warn-pale: #fdf0ed;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  strong { color: var(--purple-soft); font-weight: 700; letter-spacing: 0.01em; }
+
+  /* ── EXEC SUMMARY REVISIONS ─────────────────────────────── */
+  .exec-bullets {
+    margin: 0 0 1.5rem;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    font-size: 0.95rem;
+    color: var(--neutral-700);
+    line-height: 1.6;
+  }
+  .exec-bullets li::marker { color: var(--purple-soft); }
+
+  .impact-bridge {
+    background: var(--accent-warn-pale);
+    border-left: 3px solid var(--accent-warn);
+    padding: 0.8rem 1rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.875rem;
+    color: var(--neutral-700);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .section-bridge-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--neutral-500);
+    margin: 1.75rem 0 0.5rem;
+  }
+
+  .card-opportunity {
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--neutral-500);
+    border-top: 1px solid var(--neutral-200);
+    padding-top: 0.5rem;
+    line-height: 1.5;
+  }
+
+  /* ── PRIORITY BADGES ─────────────────────────────── */
+  .fc-priority {
+    display: inline-block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  .fc-priority.critical { background: var(--accent-warn-pale); color: var(--accent-warn); }
+  .fc-priority.high { background: #fff3e0; color: #b45309; }
+  .fc-priority.moderate { background: var(--neutral-200); color: var(--neutral-500); }
+
+  /* ── TYPOGRAPHY IMPROVEMENTS ─────────────────────────────── */
+  .section-subtitle { line-height: 1.75; }
+  .fc-stat { font-weight: 700; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--neutral-100);
+    color: var(--neutral-700);
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR ─────────────────────────────── */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--purple-deep);
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .sidebar-logo {
+    padding: 0 1.5rem 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .sidebar-logo .logo-label {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  .sidebar-logo .logo-sub {
+    font-size: 0.75rem;
+    color: var(--green-soft);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  .nav-section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    padding: 1.5rem 1.5rem 0.5rem;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 1.5rem;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    border-left: 3px solid transparent;
+    transition: all 0.18s ease;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--white);
+    background: rgba(255,255,255,0.06);
+    border-left-color: var(--green-soft);
+  }
+
+  .nav-link .nav-num {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.75);
+    border-radius: 3px;
+    padding: 1px 5px;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  .nav-link.active .nav-num {
+    background: var(--green-soft);
+    color: var(--white);
+  }
+
+  /* ── MAIN ─────────────────────────────── */
+  .main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-width: 0;
+    padding: 0 0 6rem;
+  }
+
+  /* ── HERO ─────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-mid) 60%, #3a2860 100%);
+    padding: 4rem 3rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(90,171,126,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--green-soft);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--green-soft);
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    align-items: flex-start;
+  }
+
+  .hero-meta-group,
+  .hero-meta-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .hero-meta-row {
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  .hero-slide-link {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 0.35rem 0.75rem;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+  }
+
+  .hero-slide-link:hover {
+    color: var(--white);
+    border-color: var(--green-soft);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .hero-slide-link svg {
+    opacity: 0.7;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .hero-meta-item .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .hero-meta-item .value {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.95);
+    font-weight: 500;
+  }
+
+  .competitor-chips {
+    margin-left: 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chip {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.2);
+    font-weight: 500;
+  }
+
+  /* ── SECTIONS ─────────────────────────────── */
+  section {
+    padding: 3rem 3rem 1rem;
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  .section-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple-soft);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.65rem;
+    color: var(--purple-deep);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    color: var(--neutral-700);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* ── EXECUTIVE SUMMARY ─────────────────────────────── */
+  .exec-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .exec-summary-grid--3 {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 1.25rem;
+  }
+
+
+  .exec-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1.4rem 1.4rem 1.2rem;
+    border: 1px solid var(--neutral-200);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .exec-card .card-body {
+    margin-top: auto;
+  }
+
+  /* ── ROADMAP CARD ─────────────────────────────── */
+  .roadmap-card {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 0.4rem 1.6rem;
+    border-left: 3px solid var(--green-soft);
+  }
+
+  .roadmap-group {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  .roadmap-group:last-child { border-bottom: none; }
+
+  .roadmap-group-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--neutral-900);
+    font-weight: 700;
+    width: 190px;
+    flex-shrink: 0;
+    padding-top: 0.15rem;
+    line-height: 1.4;
+  }
+
+  .roadmap-group-detail {
+    flex: 1;
+    font-size: 0.88rem;
+    color: var(--neutral-700);
+    line-height: 1.6;
+  }
+
+  .exec-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+
+  .exec-card.purple::before { background: var(--green-soft); }
+  .exec-card.green::before { background: var(--green-soft); }
+  .exec-card.warn::before { background: var(--green-soft); }
+
+  .exec-card .card-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+    margin-bottom: 0.5rem;
+  }
+
+  .exec-card .card-headline {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    line-height: 1.45;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  .exec-card .card-body {
+    font-size: 0.9rem;
+    color: var(--neutral-700);
+    line-height: 1.6;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-box {
+    flex: 1;
+    background: var(--purple-deep);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .stat-box .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--green-soft);
+  }
+
+  .stat-box .stat-label {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+  }
+
+  /* ── LOOP DIAGRAM ─────────────────────────────── */
+  .loop-diagram {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 1.6rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .loop-diagram-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+    margin-bottom: 1.1rem;
+  }
+
+  .loop-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .loop-node {
+    flex: 1;
+    background: var(--purple-pale);
+    border: 1.5px solid var(--purple-soft);
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loop-node-num {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple-soft);
+    margin-bottom: 0.3rem;
+  }
+
+  .loop-node-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--purple-deep);
+    line-height: 1.3;
+  }
+
+  .loop-arrow {
+    flex-shrink: 0;
+    width: 2.5rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .loop-arrow::before {
+    content: '';
+    display: block;
+    height: 2px;
+    background: var(--neutral-200);
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    transform: translateY(-50%);
+  }
+
+  .loop-arrow::after {
+    content: '✕';
+    font-size: 0.8rem;
+    color: var(--accent-warn);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--white);
+    padding: 0 3px;
+  }
+
+  .loop-note {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--accent-warn);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .loop-subtext {
+    margin-top: 0.85rem;
+    font-size: 0.875rem;
+    color: var(--neutral-700);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .loop-note::before {
+    content: '✕';
+    font-size: 0.7rem;
+    background: var(--accent-warn-pale);
+    color: var(--accent-warn);
+    border-radius: 50%;
+    width: 16px; height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── QUOTE ─────────────────────────────── */
+  .quote-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .quote-block {
+    background: var(--purple-pale);
+    border-left: 4px solid var(--purple-soft);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.4rem;
+    margin: 1.5rem 0;
+  }
+
+  .quote-block p {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--purple-deep);
+    line-height: 1.55;
+  }
+
+  .quote-block .quote-attr {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.8rem;
+    color: var(--purple-soft);
+    font-weight: 500;
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FINDING CARDS ─────────────────────────────── */
+  .finding-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .finding-grid.finding-grid-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .finding-card {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .finding-card .fc-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .finding-card .fc-icon.purple { background: var(--purple-pale); }
+  .finding-card .fc-icon.green { background: var(--green-pale); }
+  .finding-card .fc-icon.warn { background: var(--accent-warn-pale); }
+
+  .finding-card .fc-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    line-height: 1.35;
+  }
+
+  .finding-card .fc-body {
+    font-size: 0.9rem;
+    color: var(--neutral-700);
+    line-height: 1.6;
+  }
+
+  .finding-card .fc-stat {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--purple-soft);
+    background: var(--purple-pale);
+    border-radius: 4px;
+    padding: 2px 8px;
+    display: inline-block;
+    margin-top: 0.3rem;
+    width: fit-content;
+  }
+
+  .finding-card .fc-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+
+  .finding-card .fc-competitor-chip {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--neutral-500);
+    background: var(--neutral-200);
+    border-radius: 4px;
+    padding: 2px 7px;
+    display: inline-block;
+  }
+
+  .finding-card .fc-stat.green {
+    color: var(--green-mid);
+    background: var(--green-pale);
+  }
+
+  /* ── STANDOUT TABLE ─────────────────────────────── */
+  .standout-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+  }
+
+  .standout-item {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    transition: box-shadow 0.15s ease;
+  }
+
+  .standout-item:hover {
+    box-shadow: 0 4px 16px rgba(45,27,78,0.08);
+  }
+
+  .si-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .si-chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--purple-pale);
+    color: var(--purple-mid);
+    border-radius: 99px;
+    padding: 2px 10px;
+    border: 1px solid rgba(124,92,191,0.2);
+    white-space: nowrap;
+  }
+
+  .si-type-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+
+  /* Category color coding */
+  .si-type-tag.graph   { background: var(--green-pale); color: var(--green-mid); }
+  .si-type-tag.status  { background: #fff3cd; color: #92610a; }
+  .si-type-tag.action  { background: var(--accent-warn-pale); color: var(--accent-warn); }
+  .si-type-tag.nav     { background: var(--purple-pale); color: var(--purple-soft); }
+
+  .standout-item .si-context {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+  }
+
+  .standout-item .si-why {
+    font-size: 0.875rem;
+    color: var(--neutral-700);
+    line-height: 1.5;
+    padding-top: 0.35rem;
+    border-top: 1px solid var(--neutral-200);
+  }
+
+  /* ── 2x2 RANKINGS ─────────────────────────────── */
+  .ranking-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .ranking-col {
+    border-radius: 10px;
+    padding: 1.2rem;
+    border: 1px solid;
+  }
+
+  .ranking-col.winner {
+    background: var(--green-pale);
+    border-color: rgba(90,171,126,0.3);
+  }
+
+  .ranking-col.loser {
+    background: var(--accent-warn-pale);
+    border-color: rgba(192,83,58,0.2);
+  }
+
+  .ranking-col .rc-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+
+  .ranking-col.winner .rc-label { color: var(--green-mid); }
+  .ranking-col.loser .rc-label { color: var(--accent-warn); }
+
+  .ranking-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .ranking-row:last-child { border-bottom: none; }
+
+  .ranking-row .rr-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--neutral-700);
+  }
+
+  .ranking-row .rr-score {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--neutral-700);
+  }
+
+  .ranking-winner-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--purple-deep);
+    color: var(--white);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+  }
+
+  /* ── QUESTIONS ─────────────────────────────── */
+  .q-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+  }
+
+  .q-item {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 1rem 1.2rem 1rem 3.5rem;
+    position: relative;
+    font-size: 1rem;
+    color: var(--neutral-700);
+    line-height: 1.5;
+    font-weight: 500;
+    transition: border-color 0.15s;
+  }
+
+  .q-item:hover {
+    border-color: var(--purple-soft);
+  }
+
+  .q-item::before {
+    content: attr(data-num);
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px; height: 22px;
+    background: var(--purple-pale);
+    color: var(--purple-soft);
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── METHODS ─────────────────────────────── */
+  .methods-overview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .methods-card {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+  }
+
+  .methods-card .mc-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .methods-card .mc-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .methods-details-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .methods-details-grid .methods-card {
+    padding: 0.75rem 1rem;
+  }
+
+  .methods-card.stat-style {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.15rem;
+  }
+
+  .methods-card.stat-style .mc-stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--green-soft);
+    line-height: 1;
+  }
+
+  .methods-card.stat-style .mc-stat-sub {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--neutral-700);
+    line-height: 1.3;
+  }
+
+  .methods-card .mc-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+  }
+
+  .methods-card .mc-chip {
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: var(--purple-pale);
+    color: var(--purple-mid);
+    border-radius: 99px;
+    padding: 2px 9px;
+    border: 1px solid rgba(124,92,191,0.18);
+  }
+
+  /* Pipeline */
+  .pipeline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+  }
+
+  .pipeline-step {
+    flex: 1;
+    min-width: 130px;
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .pipeline-step .ps-num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple-soft);
+    margin-bottom: 0.1rem;
+  }
+
+  .pipeline-step .ps-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    line-height: 1.3;
+  }
+
+  .pipeline-step .ps-detail {
+    font-size: 0.875rem;
+    color: var(--neutral-700);
+    line-height: 1.5;
+  }
+
+  .pipeline-step .ps-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.2rem;
+  }
+
+  .pipeline-step .ps-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--purple-pale);
+    color: var(--purple-soft);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+
+  .pipeline-step .ps-tag.green {
+    background: var(--green-pale);
+    color: var(--green-mid);
+  }
+
+  .pipeline-arrow {
+    flex-shrink: 0;
+    width: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1.5rem;
+    color: var(--neutral-500);
+    font-size: 0.85rem;
+  }
+
+  /* ── TYPE LEGEND ─────────────────────────────── */
+  .type-legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  .type-legend-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+    font-weight: 600;
+    margin-right: 0.25rem;
+  }
+
+  /* ── DIVIDER ─────────────────────────────── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0 0;
+  }
+
+  .section-divider span {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+    white-space: nowrap;
+  }
+
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--neutral-200);
+  }
+
+  /* ── INSIGHT CALLOUT ─────────────────────────────── */
+  .insight-callout {
+    background: linear-gradient(135deg, var(--purple-deep), var(--purple-mid));
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: var(--white);
+    margin: 1.5rem 0;
+  }
+
+  .insight-callout .ic-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-soft);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-callout p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.92);
+  }
+
+  /* ── FOOTER ─────────────────────────────── */
+  .report-footer {
+    background: var(--neutral-200);
+    padding: 1.5rem 3rem;
+    font-size: 0.875rem;
+    color: var(--neutral-700);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ── COLLAPSIBLE NAV GROUP ─────────────────────────────── */
+  .nav-group-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 1.5rem;
+    color: rgba(255,255,255,0.8);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-align: left;
+    border-left: 3px solid transparent;
+    transition: all 0.18s ease;
+  }
+  .nav-group-toggle:hover {
+    color: var(--white);
+    background: rgba(255,255,255,0.06);
+    border-left-color: var(--green-soft);
+  }
+  .nav-group-toggle .nav-num {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.75);
+    border-radius: 3px;
+    padding: 1px 5px;
+    min-width: 20px;
+    text-align: center;
+  }
+  .nav-toggle-icon {
+    margin-left: auto;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.45);
+    transition: transform 0.2s ease;
+  }
+  .nav-group.open .nav-toggle-icon { transform: rotate(90deg); }
+  .nav-group-items {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.25s ease;
+  }
+  .nav-group.open .nav-group-items { max-height: 400px; }
+  .nav-link.nav-sub {
+    padding-left: 2.6rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+  }
+  .nav-link.nav-sub:hover {
+    color: var(--white);
+    background: rgba(255,255,255,0.06);
+    border-left-color: var(--green-soft);
+  }
+  .nav-link.nav-sub .nav-num {
+    font-size: 0.7rem;
+    padding: 1px 4px;
+    min-width: 18px;
+  }
+
+  /* ── RESPONSIVE TWEAKS ─────────────────────────────── */
+  @media (max-width: 700px) {
+    .main { margin-left: 0; }
+    .sidebar { display: none; }
+    .exec-summary-grid, .finding-grid, .ranking-grid { grid-template-columns: 1fr; }
+    .hero { padding: 2rem 1.5rem; }
+    section { padding: 2rem 1.5rem 1rem; }
+    .hero h1 { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR NAV ─────────────────────────── -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-label">Fortify UX<br>Competitive Report</div>
+    <div class="logo-sub">AI Red Teaming · 2026</div>
+  </div>
+
+  <div class="nav-section-label">Report</div>
+
+  <a href="#exec-summary" class="nav-link active">
+    <span class="nav-num">00</span> Executive Summary
+  </a>
+
+  <div class="nav-section-label" style="margin-top:0.5rem;">Appendix</div>
+
+  <a href="UX_Audit_Appendix.html#appendix-methods" class="nav-link nav-sub">
+    <span class="nav-num">⚗</span> Methods
+  </a>
+  <a href="UX_Audit_Appendix.html#rq1" class="nav-link nav-sub">
+    <span class="nav-num">RQ1</span> Data Visualization
+  </a>
+  <a href="UX_Audit_Appendix.html#rq2" class="nav-link nav-sub">
+    <span class="nav-num">RQ2</span> Actionability
+  </a>
+  <a href="UX_Audit_Appendix.html#standouts" class="nav-link nav-sub">
+    <span class="nav-num">★★★</span> Standouts
+  </a>
+  <a href="UX_Audit_Appendix.html#rankings" class="nav-link nav-sub">
+    <span class="nav-num">2×2</span> Rankings
+  </a>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────── -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Competitive UX Landscape · AI Red Teaming</div>
+    <h1>No one knows what a <em>good AI red teaming user experience (UX)</em> looks like.</h1>
+
+    <div class="hero-meta">
+      <div class="hero-meta-row">
+        <div class="hero-meta-item">
+          <span class="label">Sample Size</span>
+          <span class="value">N = 6</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="label">Competitors Reviewed</span>
+          <span class="value">6 Competitors</span>
+        </div>
+        <a class="hero-slide-link" href="Fortify UIUX Audit.pdf" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M10 2v4h4" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          View Slide Deck
+        </a>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- ── 00 EXECUTIVE SUMMARY ─────────────────────────── -->
+  <section id="exec-summary">
+    <div class="section-eyebrow">00 — Executive Summary</div>
+    <h2 class="section-title">Built for Richness. Not for Actionability.</h2>
+
+    <div class="section-bridge-label">Comprehension & Actionability Gap</div>
+    <div class="loop-diagram">
+      <div class="loop-diagram-label">Some competitors attempt to support users but remains limited...</div>
+      <div class="loop-flow">
+        <div class="loop-node">
+          <span class="loop-node-num">Step 1</span>
+          <span class="loop-node-text">🔍 Surface Findings</span>
+        </div>
+        <div class="loop-arrow"></div>
+        <div class="loop-node">
+          <span class="loop-node-num">Step 2</span>
+          <span class="loop-node-text">🔗 Explain Business Impact</span>
+        </div>
+        <div class="loop-arrow"></div>
+        <div class="loop-node">
+          <span class="loop-node-num">Step 3</span>
+          <span class="loop-node-text">🛠 Guide Remediation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exec-summary-grid exec-summary-grid--3">
+      <div class="exec-card purple">
+        <div class="card-label">Data Comprehension</div>
+        <div class="card-headline">When users can't understand the data in seconds, it becomes noise</div>
+        <div class="card-body">
+          <ul class="exec-bullets" style="margin:0; padding-left:1.1rem;">
+            <li>Findings output a <strong>dense</strong> set of data that is <strong>hard to digest</strong></li>
+            <li>Users struggle to <strong>interpret and prioritize</strong> results</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exec-card warn">
+        <div class="card-label">Actionability Gap</div>
+        <div class="card-headline">Without clear prioritization or business impact, everything feels equally urgent and/or equally ignorable.</div>
+        <div class="card-body">
+          <ul class="exec-bullets" style="margin:0; padding-left:1.1rem;">
+            <li>Findings lack <strong>clear guidance</strong> on <strong>remediation</strong> steps</li>
+            <li>Tools rarely translate raw results into <strong>business impact</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-callout">
+      <div class="ic-label">The Compounding Effect</div>
+      <p>Together, these gaps make the tool inaccessible for non-technical audiences — those who most need clear, contextualized results are left unable to engage meaningfully.</p>
+    </div>
+
+    <div class="section-bridge-label">Potential Fortify Design Solutions...</div>
+    <div class="roadmap-card">
+      <div class="roadmap-group">
+        <div class="roadmap-group-label">Onboarding</div>
+        <div class="roadmap-group-detail">Guide users through target creation with sidebar <strong>step-by-step configuration</strong> to reduce onboarding friction</div>
+      </div>
+      <div class="roadmap-group">
+        <div class="roadmap-group-label">Reporting &amp; Dashboard</div>
+        <div class="roadmap-group-detail">Provide a <strong>model-specific dashboard view</strong> with status diagrams and <strong>performance history graphs</strong> for ongoing monitoring and reporting</div>
+      </div>
+      <div class="roadmap-group">
+        <div class="roadmap-group-label">Comprehension &amp; Visualization</div>
+        <div class="roadmap-group-detail">Use familiar diagrams aligned with users' <strong>mental models</strong>; provide <strong>scoring logic</strong> for complex visualizations to reduce uncertainty</div>
+      </div>
+      <div class="roadmap-group">
+        <div class="roadmap-group-label">Information Architecture</div>
+        <div class="roadmap-group-detail">Minimize UI density through <strong>color-coded</strong> advanced filtering and <strong>side panels</strong> — giving users control over depth</div>
+      </div>
+      <div class="roadmap-group">
+        <div class="roadmap-group-label">Remediation &amp; Navigation</div>
+        <div class="roadmap-group-detail">Embed <strong>inline remediation actions</strong> within findings and streamline navigational flow to reduce <strong>back-and-forth</strong></div>
+      </div>
+      <div class="roadmap-group">
+        <div class="roadmap-group-label">Actionability &amp; Prioritization</div>
+        <div class="roadmap-group-detail">Surface clear <strong>urgency signals</strong> so users know which risks are most critical to address first</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── QUESTIONS FOR FORTIFY ─────────────────────────── -->
+  <section id="questions">
+    <div class="section-eyebrow">Design Questions for Fortify</div>
+    <h2 class="section-title">Where do we go from here?</h2>
+    <p class="section-subtitle">Potential open design challenges that needs to be addressed.</p>
+
+    <div class="q-list">
+      <div class="q-item" data-num="1">How might we improve the overall mental model of Fortify so users immediately understand what the Fortify is capable of?</div>
+      <div class="q-item" data-num="2">What risks are clients willing to accept vs. not, and how can Fortify customize that context to inform remediation prioritization?</div>
+      <div class="q-item" data-num="3">How should we portray results in a way that is digestible even for non-technical stakeholders and connect the findings to business impact?</div>
+      <div class="q-item" data-num="4">How might we map the level of criticality in a way that helps users take action and prioritize certain vulnerabilities?</div>
+      <div class="q-item" data-num="5">How might we support users in mitigating identified risks with a specific and actionable next steps?</div>
+    </div>
+  </section>
+
+  <div class="report-footer">
+    <span>AI Red Team: Fortify UX Competitive Landscape · Q1 - Q2</span>
+    <span>Tony Lee</span>
+  </div>
+
+</main>
+
+<script>
+  // Active nav link on scroll (local sections only)
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const id = entry.target.id;
+        const active = document.querySelector(`.nav-link[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35 });
+
+  document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

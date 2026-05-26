@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortify UX Report — Appendix</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple-deep: #2d1b4e;
+    --purple-mid: #4a3272;
+    --purple-soft: #7c5cbf;
+    --purple-pale: #ede8f7;
+    --green-mid: #3a7d5a;
+    --green-soft: #5aab7e;
+    --green-pale: #e8f5ee;
+    --neutral-900: #111118;
+    --neutral-700: #3a3a4a;
+    --neutral-500: #6b6b80;
+    --neutral-200: #e8e8f0;
+    --neutral-100: #f4f4f8;
+    --white: #ffffff;
+    --sidebar-w: 240px;
+    --accent-warn: #c0533a;
+    --accent-warn-pale: #fdf0ed;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  strong { color: var(--purple-soft); font-weight: 700; letter-spacing: 0.01em; }
+
+  /* ── EXEC SUMMARY REVISIONS ─────────────────────────────── */
+  .exec-bullets {
+    margin: 0 0 1.5rem;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    font-size: 0.95rem;
+    color: var(--neutral-700);
+    line-height: 1.6;
+  }
+  .exec-bullets li::marker { color: var(--purple-soft); }
+
+  .impact-bridge {
+    background: var(--accent-warn-pale);
+    border-left: 3px solid var(--accent-warn);
+    padding: 0.8rem 1rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.875rem;
+    color: var(--neutral-700);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .section-bridge-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--neutral-500);
+    margin: 1.75rem 0 0.5rem;
+  }
+
+  .card-opportunity {
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--neutral-500);
+    border-top: 1px solid var(--neutral-200);
+    padding-top: 0.5rem;
+    line-height: 1.5;
+  }
+
+  /* ── PRIORITY BADGES ─────────────────────────────── */
+  .fc-priority {
+    display: inline-block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  .fc-priority.critical { background: var(--accent-warn-pale); color: var(--accent-warn); }
+  .fc-priority.high { background: #fff3e0; color: #b45309; }
+  .fc-priority.moderate { background: var(--neutral-200); color: var(--neutral-500); }
+
+  /* ── TYPOGRAPHY IMPROVEMENTS ─────────────────────────────── */
+  .section-subtitle { line-height: 1.75; }
+  .fc-stat { font-weight: 700; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--neutral-100);
+    color: var(--neutral-700);
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR ─────────────────────────────── */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--purple-deep);
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .sidebar-logo {
+    padding: 0 1.5rem 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .sidebar-logo .logo-label {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  .sidebar-logo .logo-sub {
+    font-size: 0.75rem;
+    color: var(--green-soft);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  .nav-section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    padding: 1.5rem 1.5rem 0.5rem;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 1.5rem;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    border-left: 3px solid transparent;
+    transition: all 0.18s ease;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--white);
+    background: rgba(255,255,255,0.06);
+    border-left-color: var(--green-soft);
+  }
+
+  .nav-link .nav-num {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.75);
+    border-radius: 3px;
+    padding: 1px 5px;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  .nav-link.active .nav-num {
+    background: var(--green-soft);
+    color: var(--white);
+  }
+
+  /* ── COLLAPSIBLE NAV GROUP ─────────────────────────────── */
+  .nav-group-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 1.5rem;
+    color: rgba(255,255,255,0.8);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-align: left;
+    border-left: 3px solid transparent;
+    transition: all 0.18s ease;
+  }
+  .nav-group-toggle:hover {
+    color: var(--white);
+    background: rgba(255,255,255,0.06);
+    border-left-color: var(--green-soft);
+  }
+  .nav-group-toggle .nav-num {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.75);
+    border-radius: 3px;
+    padding: 1px 5px;
+    min-width: 20px;
+    text-align: center;
+  }
+  .nav-toggle-icon {
+    margin-left: auto;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.45);
+    transition: transform 0.2s ease;
+  }
+  .nav-group.open .nav-toggle-icon { transform: rotate(90deg); }
+  .nav-group-items {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.25s ease;
+  }
+  .nav-group.open .nav-group-items { max-height: 400px; }
+  .nav-link.nav-sub {
+    padding-left: 2.6rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+  }
+  .nav-link.nav-sub:hover, .nav-link.nav-sub.active {
+    color: var(--white);
+    background: rgba(255,255,255,0.06);
+    border-left-color: var(--green-soft);
+  }
+  .nav-link.nav-sub .nav-num {
+    font-size: 0.7rem;
+    padding: 1px 4px;
+    min-width: 18px;
+  }
+  .nav-link.nav-sub.active .nav-num {
+    background: var(--green-soft);
+    color: var(--white);
+  }
+
+  /* ── MAIN ─────────────────────────────── */
+  .main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-width: 0;
+    padding: 0 0 6rem;
+  }
+
+  /* ── HERO ─────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-mid) 60%, #3a2860 100%);
+    padding: 4rem 3rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(90,171,126,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--green-soft);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--green-soft); }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    align-items: flex-start;
+  }
+
+  .hero-meta-group,
+  .hero-meta-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .hero-meta-row { flex-wrap: nowrap; width: 100%; }
+
+  .hero-slide-link {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 0.35rem 0.75rem;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+  }
+
+  .hero-slide-link:hover {
+    color: var(--white);
+    border-color: var(--green-soft);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .hero-meta-item .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .hero-meta-item .value {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.95);
+    font-weight: 500;
+  }
+
+  .competitor-chips {
+    margin-left: 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chip {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.2);
+    font-weight: 500;
+  }
+
+  /* ── SECTIONS ─────────────────────────────── */
+  section {
+    padding: 3rem 3rem 1rem;
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  .section-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple-soft);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.65rem;
+    color: var(--purple-deep);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    color: var(--neutral-700);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* ── EXECUTIVE SUMMARY ─────────────────────────────── */
+  .exec-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .exec-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 1.4rem 1.4rem 1.2rem;
+    border: 1px solid var(--neutral-200);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exec-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+
+  .exec-card.purple::before { background: var(--purple-soft); }
+  .exec-card.green::before { background: var(--green-soft); }
+  .exec-card.warn::before { background: var(--accent-warn); }
+
+  .exec-card .card-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+    margin-bottom: 0.5rem;
+  }
+
+  .exec-card .card-headline {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+  }
+
+  .exec-card .card-body {
+    font-size: 0.9rem;
+    color: var(--neutral-700);
+    line-height: 1.6;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-box {
+    flex: 1;
+    background: var(--purple-deep);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .stat-box .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--green-soft);
+  }
+
+  .stat-box .stat-label {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+  }
+
+  /* ── QUOTE ─────────────────────────────── */
+  .quote-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .quote-block {
+    background: var(--purple-pale);
+    border-left: 4px solid var(--purple-soft);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.4rem;
+    margin: 1.5rem 0;
+  }
+
+  .quote-block p {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--purple-deep);
+    line-height: 1.55;
+  }
+
+  .quote-block .quote-attr {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.8rem;
+    color: var(--purple-soft);
+    font-weight: 500;
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FINDING CARDS ─────────────────────────────── */
+  .finding-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .finding-grid.finding-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  .finding-card {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .finding-card .fc-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .finding-card .fc-icon.purple { background: var(--purple-pale); }
+  .finding-card .fc-icon.green { background: var(--green-pale); }
+  .finding-card .fc-icon.warn { background: var(--accent-warn-pale); }
+
+  .finding-card .fc-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    line-height: 1.35;
+  }
+
+  .finding-card .fc-body {
+    font-size: 0.9rem;
+    color: var(--neutral-700);
+    line-height: 1.6;
+  }
+
+  .finding-card .fc-stat {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--purple-soft);
+    background: var(--purple-pale);
+    border-radius: 4px;
+    padding: 2px 8px;
+    display: inline-block;
+    margin-top: 0.3rem;
+    width: fit-content;
+  }
+
+  .finding-card .fc-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+
+  .finding-card .fc-competitor-chip {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--neutral-500);
+    background: var(--neutral-200);
+    border-radius: 4px;
+    padding: 2px 7px;
+    display: inline-block;
+  }
+
+  .finding-card .fc-stat.green {
+    color: var(--green-mid);
+    background: var(--green-pale);
+  }
+
+  /* ── STANDOUT TABLE ─────────────────────────────── */
+  .standout-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+  }
+
+  .standout-item {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    transition: box-shadow 0.15s ease;
+  }
+
+  .standout-item:hover { box-shadow: 0 4px 16px rgba(45,27,78,0.08); }
+
+  .si-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .si-chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--purple-pale);
+    color: var(--purple-mid);
+    border-radius: 99px;
+    padding: 2px 10px;
+    border: 1px solid rgba(124,92,191,0.2);
+    white-space: nowrap;
+  }
+
+  .si-type-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+
+  .si-type-tag.graph   { background: var(--green-pale); color: var(--green-mid); }
+  .si-type-tag.status  { background: #fff3cd; color: #92610a; }
+  .si-type-tag.action  { background: var(--accent-warn-pale); color: var(--accent-warn); }
+  .si-type-tag.nav     { background: var(--purple-pale); color: var(--purple-soft); }
+
+  .standout-item .si-context {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+  }
+
+  .standout-item .si-why {
+    font-size: 0.875rem;
+    color: var(--neutral-700);
+    line-height: 1.5;
+    padding-top: 0.35rem;
+    border-top: 1px solid var(--neutral-200);
+  }
+
+  /* ── 2x2 RANKINGS ─────────────────────────────── */
+  .ranking-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .ranking-col {
+    border-radius: 10px;
+    padding: 1.2rem;
+    border: 1px solid;
+  }
+
+  .ranking-col.winner { background: var(--green-pale); border-color: rgba(90,171,126,0.3); }
+  .ranking-col.loser  { background: var(--accent-warn-pale); border-color: rgba(192,83,58,0.2); }
+
+  .ranking-col .rc-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+
+  .ranking-col.winner .rc-label { color: var(--green-mid); }
+  .ranking-col.loser .rc-label  { color: var(--accent-warn); }
+
+  .ranking-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .ranking-row:last-child { border-bottom: none; }
+  .ranking-row .rr-name  { font-size: 0.9rem; font-weight: 500; color: var(--neutral-700); }
+  .ranking-row .rr-score { font-size: 0.875rem; font-weight: 600; color: var(--neutral-700); }
+
+  .ranking-winner-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--purple-deep);
+    color: var(--white);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+  }
+
+  /* ── METHODS ─────────────────────────────── */
+  .methods-overview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .methods-card {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+  }
+
+  .methods-card .mc-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .methods-details-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .methods-details-grid .methods-card { padding: 0.75rem 1rem; }
+
+  .methods-card.stat-style {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.15rem;
+  }
+
+  .methods-card.stat-style .mc-stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--green-soft);
+    line-height: 1;
+  }
+
+  .methods-card .mc-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+  }
+
+  .methods-card .mc-chip {
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: var(--purple-pale);
+    color: var(--purple-mid);
+    border-radius: 99px;
+    padding: 2px 9px;
+    border: 1px solid rgba(124,92,191,0.18);
+  }
+
+  .pipeline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+  }
+
+  .pipeline-step {
+    flex: 1;
+    min-width: 130px;
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .pipeline-step .ps-num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple-soft);
+    margin-bottom: 0.1rem;
+  }
+
+  .pipeline-step .ps-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    line-height: 1.3;
+  }
+
+  .pipeline-step .ps-detail {
+    font-size: 0.875rem;
+    color: var(--neutral-700);
+    line-height: 1.5;
+  }
+
+  .pipeline-step .ps-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.2rem;
+  }
+
+  .pipeline-step .ps-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--purple-pale);
+    color: var(--purple-soft);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+
+  .pipeline-step .ps-tag.green { background: var(--green-pale); color: var(--green-mid); }
+
+  .pipeline-arrow {
+    flex-shrink: 0;
+    width: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1.5rem;
+    color: var(--neutral-500);
+    font-size: 0.85rem;
+  }
+
+  /* ── TYPE LEGEND ─────────────────────────────── */
+  .type-legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  .type-legend-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+    font-weight: 600;
+    margin-right: 0.25rem;
+  }
+
+  /* ── DIVIDER ─────────────────────────────── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0 0;
+  }
+
+  .section-divider span {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+    white-space: nowrap;
+  }
+
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--neutral-200);
+  }
+
+  /* ── INSIGHT CALLOUT ─────────────────────────────── */
+  .insight-callout {
+    background: linear-gradient(135deg, var(--purple-deep), var(--purple-mid));
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: var(--white);
+    margin: 1.5rem 0;
+  }
+
+  .insight-callout .ic-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-soft);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-callout p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.92);
+  }
+
+  /* ── FOOTER ─────────────────────────────── */
+  .report-footer {
+    background: var(--neutral-200);
+    padding: 1.5rem 3rem;
+    font-size: 0.875rem;
+    color: var(--neutral-700);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ── RESPONSIVE TWEAKS ─────────────────────────────── */
+  @media (max-width: 700px) {
+    .main { margin-left: 0; }
+    .sidebar { display: none; }
+    .exec-summary-grid, .finding-grid, .ranking-grid { grid-template-columns: 1fr; }
+    .hero { padding: 2rem 1.5rem; }
+    section { padding: 2rem 1.5rem 1rem; }
+    .hero h1 { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR NAV ─────────────────────────── -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-label">Fortify UX<br>Competitive Report</div>
+    <div class="logo-sub">AI Red Teaming · 2026</div>
+  </div>
+
+  <div class="nav-section-label">Report</div>
+
+  <a href="UX_Audit_Report.html#exec-summary" class="nav-link">
+    <span class="nav-num">00</span> Executive Summary
+  </a>
+
+  <div class="nav-section-label" style="margin-top:0.5rem;">Appendix</div>
+
+  <a href="#appendix-methods" class="nav-link nav-sub">
+    <span class="nav-num">⚗</span> Methods
+  </a>
+  <a href="#rq1" class="nav-link nav-sub">
+    <span class="nav-num">RQ1</span> Data Visualization
+  </a>
+  <a href="#rq2" class="nav-link nav-sub">
+    <span class="nav-num">RQ2</span> Actionability
+  </a>
+  <a href="#standouts" class="nav-link nav-sub">
+    <span class="nav-num">★★★</span> Standouts
+  </a>
+  <a href="#rankings" class="nav-link nav-sub">
+    <span class="nav-num">2×2</span> Rankings
+  </a>
+</nav>
+
+<!-- ── MAIN CONTENT ─────────────────────────── -->
+<main class="main">
+
+  <!-- ── APPENDIX A: FULL METHODOLOGY ─────────────────────────── -->
+  <section id="appendix-methods">
+    <div class="section-eyebrow">Appendix A — Full Methodology</div>
+    <h2 class="section-title">How we approached this.</h2>
+    <p class="section-subtitle">A qualitative, workshop-driven study using hybrid affinity mapping to surface patterns across 6 AI red teaming competitors.</p>
+
+    <div class="methods-overview">
+      <div class="methods-card">
+        <div class="mc-label"><strong>RQ1 — Data Visualization</strong></div>
+        <div class="ps-detail" style="margin-top:0.5rem; line-height:1.7; font-size:0.95rem; color:var(--neutral-700);">What type of data visualization are used and are they effective?</div>
+      </div>
+      <div class="methods-card">
+        <div class="mc-label"><strong>RQ2 — Actionability</strong></div>
+        <div class="ps-detail" style="margin-top:0.5rem; line-height:1.7; font-size:0.95rem; color:var(--neutral-700);">How do competitors support users in acting on the findings?</div>
+      </div>
+    </div>
+
+    <div class="methods-details-grid">
+      <div class="methods-card stat-style">
+        <div class="mc-label">Sample Size</div>
+        <div class="mc-stat-num">N = 6</div>
+      </div>
+      <div class="methods-card stat-style">
+        <div class="mc-label"># of Design Workshop Sessions</div>
+        <div class="mc-stat-num">2</div>
+      </div>
+      <div class="methods-card">
+        <div class="mc-label">Competitors Reviewed</div>
+        <div class="mc-stat-num" style="font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--green-soft); line-height:1; margin:0.2rem 0 0.4rem;">6</div>
+        <div class="mc-chips">
+          <span class="mc-chip" style="font-size:0.75rem;">Promptfoo</span>
+          <span class="mc-chip" style="font-size:0.75rem;">PRISMA</span>
+          <span class="mc-chip" style="font-size:0.75rem;">SPLX</span>
+          <span class="mc-chip" style="font-size:0.75rem;">Calypso</span>
+          <span class="mc-chip" style="font-size:0.75rem;">MindGard</span>
+          <span class="mc-chip" style="font-size:0.75rem;">HiddenLayer</span>
+        </div>
+      </div>
+      <div class="methods-card">
+        <div class="mc-label">Data Sources</div>
+        <div style="font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--green-soft); line-height:1; margin:0.2rem 0 0.4rem;">4</div>
+        <div class="mc-chips">
+          <span class="mc-chip">2 Workshop Transcripts</span>
+          <span class="mc-chip">2×2 Plot</span>
+          <span class="mc-chip">HMW Ideation Board</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"><span>Analytical Pipeline</span></div>
+
+    <div class="pipeline" style="margin-top:1.25rem;">
+      <div class="pipeline-step">
+        <div class="ps-num">Step 1</div>
+        <div class="ps-title">Data Collection</div>
+        <div class="ps-detail">2 design workshop sessions with 6 participants reviewing AI red teaming competitors.</div>
+        <div class="ps-tags">
+          <span class="ps-tag">Transcripts</span>
+          <span class="ps-tag">2×2 Plot</span>
+          <span class="ps-tag">HMW Board</span>
+        </div>
+      </div>
+      <div class="pipeline-arrow">▸</div>
+      <div class="pipeline-step">
+        <div class="ps-num">Step 2</div>
+        <div class="ps-title">Transcript Synthesis</div>
+        <div class="ps-detail">Workshop transcripts were reviewed and synthesized to extract raw observations and participant feedback.</div>
+      </div>
+      <div class="pipeline-arrow">▸</div>
+      <div class="pipeline-step">
+        <div class="ps-num">Step 3</div>
+        <div class="ps-title">Deductive Coding</div>
+        <div class="ps-detail">Observations mapped to 5 pre-defined categories.</div>
+        <div class="ps-tags">
+          <span class="ps-tag">Actionability &amp; Reporting</span>
+          <span class="ps-tag">Comprehension / Cognitive Load</span>
+          <span class="ps-tag">Navigation Flow</span>
+          <span class="ps-tag">Data Visualization</span>
+          <span class="ps-tag">Features / Elements</span>
+        </div>
+      </div>
+      <div class="pipeline-arrow">▸</div>
+      <div class="pipeline-step">
+        <div class="ps-num">Step 4</div>
+        <div class="ps-title">Inductive Coding</div>
+        <div class="ps-detail">Iterative refinement of themes directly from the data — allowing patterns to emerge bottom-up alongside the deductive structure.</div>
+      </div>
+      <div class="pipeline-arrow">▸</div>
+      <div class="pipeline-step">
+        <div class="ps-num">Step 5</div>
+        <div class="ps-title">Standout Flagging</div>
+        <div class="ps-detail">Notable features that stood out positively were pulled aside for separate analysis.</div>
+        <div class="ps-tags">
+          <span class="ps-tag green">Data Viz Standouts</span>
+          <span class="ps-tag green">Actionability Standouts</span>
+        </div>
+      </div>
+      <div class="pipeline-arrow">▸</div>
+      <div class="pipeline-step">
+        <div class="ps-num">Step 6</div>
+        <div class="ps-title">Convergence &amp; Divergence</div>
+        <div class="ps-detail">2×2 plot rankings and HMW ideation board used to compare themes and identify where participants agreed or diverged.</div>
+        <div class="ps-tags">
+          <span class="ps-tag">2×2 Plot</span>
+          <span class="ps-tag">HMW Board</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-callout" style="background: linear-gradient(135deg, var(--green-mid), var(--green-soft)); margin-top:1.5rem;">
+      <div class="ic-label" style="color: var(--purple-deep);">Limitations</div>
+      <p>This review covers a small pool of 6 competitors and is not intended to represent the full landscape of AI red teaming products. Analysis was also constrained to publicly available UIs, which may not reflect the complete functionality of each tool. These factors limit the generalizability of the findings.</p>
+    </div>
+  </section>
+
+  <!-- ── RQ1 DATA VISUALIZATION ─────────────────────────── -->
+  <section id="rq1">
+    <div class="section-eyebrow">RQ1 — Data Visualization</div>
+    <h2 class="section-title">Competitors prioritize data richness over delivery.</h2>
+    <p class="section-subtitle">Across all 6 competitors, the <strong>common approach is to show everything</strong> — resulting in a UI that overwhelms rather than informing users. This makes it difficult for users to understand the <strong>vulnerability status of their models</strong> and <strong>what to look at first.</strong></p>
+
+    <div class="finding-grid finding-grid-3">
+      <div class="finding-card">
+        <div class="fc-priority critical">Critical</div>
+        <div class="fc-icon purple">📊</div>
+        <div class="fc-title">Overly complex diagram types</div>
+        <div class="fc-body">Diagrams that demand interpretation instead of delivering insight fail their users.</div>
+        <span class="fc-stat"><strong>5 of 6</strong> found Sankey diagrams unreadable</span>
+      </div>
+      <div class="finding-card">
+        <div class="fc-priority high">High</div>
+        <div class="fc-icon warn">❓</div>
+        <div class="fc-title">Unclear scoring logic</div>
+        <div class="fc-body">Users who don't understand a score can't act on it.</div>
+        <span class="fc-stat">Cited in <strong>2 of 6</strong> competitors</span>
+      </div>
+      <div class="finding-card">
+        <div class="fc-priority high">High</div>
+        <div class="fc-icon purple">📋</div>
+        <div class="fc-title">Visual and cognitive overload</div>
+        <div class="fc-body">Dense layouts force users to work to find insight — rather than surfacing it.</div>
+        <span class="fc-stat">Cited in <strong>2 of 6</strong> competitors</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <p>"I probably spend as much time trying to understand what they're trying to tell me as I would doing it myself."</p>
+      <div class="quote-attr">— Workshop Participant</div>
+    </div>
+
+    <div class="insight-callout">
+      <div class="ic-label">Core insight</div>
+      <p>Effective data visualization isn't about showing all the findings — it's about helping users understand the status of their models at one glance and the risks clearly.</p>
+    </div>
+  </section>
+
+  <!-- ── RQ2 ACTIONABILITY ─────────────────────────── -->
+  <section id="rq2">
+    <div class="section-eyebrow">RQ2 — Actionability</div>
+    <h2 class="section-title">Users are left to connect the dots themselves.</h2>
+    <p class="section-subtitle">Even when findings are surfaced, the path from "what was found" to "what do I do next" is unclear. <strong>Users are unsure what vulnerability needs to be prioritized</strong>, and <strong>how a vulnerability impacts the business.</strong></p>
+
+    <div class="finding-grid finding-grid-3">
+      <div class="finding-card">
+        <div class="fc-priority high">High</div>
+        <div class="fc-icon warn">📝</div>
+        <div class="fc-title">Recommendations restate findings</div>
+        <div class="fc-body"><strong>Users need specific next steps, not a restatement of the problem.</strong></div>
+        <span class="fc-stat">Observed in <strong>2 of 6</strong> competitors</span>
+      </div>
+      <div class="finding-card">
+        <div class="fc-priority moderate">Moderate</div>
+        <div class="fc-icon warn">⚖️</div>
+        <div class="fc-title">No clear prioritization signal</div>
+        <div class="fc-body"><strong>When everything surfaces at the same visual weight, nothing feels urgent.</strong></div>
+        <span class="fc-stat">Cited by a participant</span>
+      </div>
+      <div class="finding-card">
+        <div class="fc-priority critical">Critical</div>
+        <div class="fc-icon purple">🏢</div>
+        <div class="fc-title">Missing business context</div>
+        <div class="fc-body">The <strong>"why should I care"</strong> layer is almost entirely absent across competitors.</div>
+        <span class="fc-stat">Gap identified across <strong>5 of 6</strong> competitors</span>
+      </div>
+    </div>
+
+    <div class="quote-pair">
+      <div class="quote-block">
+        <p>"How do I connect the dots between what I wanted to be tested and the results they're showing me?"</p>
+        <div class="quote-attr">— Workshop Participant</div>
+      </div>
+      <div class="quote-block">
+        <p>"Understanding why I should care about the results is the key missing component from almost everyone. I'd have no idea how to interpret results."</p>
+        <div class="quote-attr">— Workshop Participant</div>
+      </div>
+    </div>
+
+    <div class="insight-callout">
+      <div class="ic-label">Core insight</div>
+      <p>Nobody is effectively closing the loop. Typically, the assessment becomes a dead-end rather than a starting point for fixing issues.</p>
+    </div>
+  </section>
+
+  <!-- ── STANDOUTS ─────────────────────────── -->
+  <section id="standouts">
+    <div class="section-eyebrow">Competitor Standouts</div>
+    <h2 class="section-title">UX features worth flagging.</h2>
+    <p class="section-subtitle">Despite broad gaps, some specific features across competitors were recognized for improving overall UX.</p>
+
+    <div class="type-legend">
+      <span class="type-legend-label">Feature type:</span>
+      <span class="si-type-tag graph">Graph</span>
+      <span class="si-type-tag status">Status / Filter</span>
+      <span class="si-type-tag action">Action</span>
+      <span class="si-type-tag nav">Navigation</span>
+    </div>
+
+    <div class="section-divider"><span>Data Visualization</span></div>
+
+    <div class="standout-list">
+      <div class="standout-item">
+        <div class="si-header">
+          <span class="si-context">Model Performance</span>
+          <span class="si-chip">MindGard</span>
+          <span class="si-type-tag graph">Line History Graph</span>
+        </div>
+        <div class="si-why">Gives users a temporal view of model performance over time — useful for reporting purposes.</div>
+      </div>
+      <div class="standout-item">
+        <div class="si-header">
+          <span class="si-context">Vulnerabilities by Intent Category</span>
+          <span class="si-chip">Calypso</span>
+          <span class="si-type-tag graph">Pie Graph</span>
+        </div>
+        <div class="si-why">Simple, familiar chart type that lets users instantly see where vulnerability volume concentrates.</div>
+      </div>
+      <div class="standout-item">
+        <div class="si-header">
+          <span class="si-context">Attack Status (<span style="color:#c0392b;font-weight:700;">Success</span> / <span style="color:#d4890a;font-weight:700;">Attempt</span> / <span style="color:#3a7d5a;font-weight:700;">No Risk</span>)</span>
+          <span class="si-chip">SPLX</span>
+          <span class="si-type-tag status">Color-coded Tags</span>
+        </div>
+        <div class="si-why">Three-state taxonomy with clear traffic light color coding makes result prioritization intuitive — users can filter by status type to reduce cognitive load.</div>
+      </div>
+      <div class="standout-item">
+        <div class="si-header">
+          <span class="si-context">Dashboard</span>
+          <span class="si-chip">SPLX</span>
+          <span class="si-type-tag status">Status Bar</span>
+        </div>
+        <div class="si-why">A single progress indicator that communicates model scan state embedded in the dashboard — reducing the need to dig through for basic status information.</div>
+      </div>
+    </div>
+
+    <div class="section-divider"><span>Actionability</span></div>
+
+    <div class="standout-list">
+      <div class="standout-item">
+        <div class="si-header">
+          <span class="si-context">Apply Mitigation · View Logs</span>
+          <span class="si-chip">Promptfoo</span>
+          <span class="si-type-tag action">Inline Action Buttons</span>
+        </div>
+        <div class="si-why">Placing actions directly next to findings removes the friction of navigating elsewhere to act. The finding and the fix live together.</div>
+      </div>
+      <div class="standout-item">
+        <div class="si-header">
+          <span class="si-context">Sidebar Configuration</span>
+          <span class="si-chip">Promptfoo</span>
+          <span class="si-chip">PRISMA</span>
+          <span class="si-type-tag nav">Step-by-step Flow</span>
+        </div>
+        <div class="si-why">Guided onboarding improves users' mental model and reduces the setup burden — especially valuable for non-technical users who need scaffolding to get started.</div>
+      </div>
+      <div class="standout-item">
+        <div class="si-header">
+          <span class="si-context">Selected Findings</span>
+          <span class="si-chip">MindGard</span>
+          <span class="si-chip">Calypso</span>
+          <span class="si-type-tag nav">Expandable Side Panels</span>
+        </div>
+        <div class="si-why">Expandable actions help keep the main view uncluttered while giving users depth on demand — a strong pattern for balancing density and clarity.</div>
+      </div>
+      <div class="standout-item">
+        <div class="si-header">
+          <span class="si-context">Critical Summary</span>
+          <span class="si-chip">Calypso</span>
+          <span class="si-type-tag nav">Fixed Card Header</span>
+        </div>
+        <div class="si-why">Keeping the critical summary context visible while scrolling through details helps users maintain orientation.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2x2 RANKINGS ─────────────────────────── -->
+  <section id="rankings">
+    <div class="section-eyebrow">2×2 Plot · Rankings</div>
+    <h2 class="section-title">Promptfoo is leading in UX.</h2>
+    <p class="section-subtitle">Workshop participants independently placed each competitor on a 2×2 axis:</p>
+    <ul class="section-subtitle" style="list-style:none; padding-left:0; margin-top:-1.25rem;">
+      <li style="margin-bottom:0.3rem;">· <strong>X axis:</strong> <span style="color:var(--green-mid);font-weight:600;">Organized</span> vs. <span style="color:#c0392b;font-weight:600;">Disorganized</span></li>
+      <li>· <strong>Y axis:</strong> <span style="color:var(--green-mid);font-weight:600;">Easy</span> vs. <span style="color:#c0392b;font-weight:600;">Difficult</span> to Understand</li>
+    </ul>
+
+    <div class="ranking-grid">
+      <div class="ranking-col winner">
+        <div class="rc-label">✓ Organized &amp; Easy to Understand</div>
+        <div class="ranking-row"><span class="rr-name">Promptfoo</span><span class="rr-score">6 of 6</span></div>
+        <div class="ranking-row"><span class="rr-name">SPLX (Zscaler)</span><span class="rr-score">2 of 6</span></div>
+        <div class="ranking-row"><span class="rr-name">MindGard</span><span class="rr-score">2 of 6</span></div>
+        <div class="ranking-row"><span class="rr-name">Calypso</span><span class="rr-score">1 of 6</span></div>
+        <div class="ranking-row"><span class="rr-name">PRISMA</span><span class="rr-score">1 of 6</span></div>
+      </div>
+      <div class="ranking-col loser">
+        <div class="rc-label">✗ Disorganized &amp; Difficult to Understand</div>
+        <div class="ranking-row"><span class="rr-name">SPLX (Zscaler)</span><span class="rr-score">3 of 6</span></div>
+        <div class="ranking-row"><span class="rr-name">Calypso</span><span class="rr-score">2 of 6</span></div>
+        <div class="ranking-row"><span class="rr-name">HiddenLayer</span><span class="rr-score">2 of 6</span></div>
+        <div class="ranking-row"><span class="rr-name">MindGard</span><span class="rr-score">1 of 6</span></div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:0.5rem;">
+      <div class="ranking-winner-tag">🥇 Clear leader: Promptfoo</div>
+      <div class="ranking-winner-tag" style="background:var(--neutral-500)">⚖️ Conflicting: SPLX · MindGard · Calypso</div>
+    </div>
+
+    <div style="margin-top:1.5rem;">
+      <div class="exec-card green" style="max-width:100%">
+        <div class="card-label">Why Promptfoo leads</div>
+        <div class="card-headline">Simple UI, inline actions, guided flow</div>
+        <div class="card-body">Promptfoo succeeds by <strong>balancing a minimal interface with just enough complexity</strong> (e.g., step-by-step configuration, in-line action buttons tied directly to the results page, and clean card-based layouts).</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="report-footer">
+    <span>AI Red Teaming · Fortify UX Competitive Landscape · Q1 - Q2 · Spring 2026</span>
+    <span>Tony Lee · Dr. Asmalina Saleh · Melissa Gorham</span>
+  </div>
+
+</main>
+
+<script>
+  // Active sub-nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const id = entry.target.id;
+        const active = document.querySelector(`.nav-link[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
